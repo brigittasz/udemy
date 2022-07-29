@@ -1,7 +1,7 @@
 package x49;
 
 public class SearchTree implements NodeList{
-    ListItem root;
+    private ListItem root;
     public SearchTree(ListItem item){
         root = item;
     }    
@@ -9,10 +9,26 @@ public class SearchTree implements NodeList{
         return root;
     }
     public boolean addItem(ListItem item){
-        root.setNext(item);
+        boolean result = false;
+        if(item.compareTo(root)<0){
+            result = addItem(item.previous());
+        } else if (item.compareTo(root)>0){
+            result = addItem(item.next());
+        } else if (root==null){
+            root = item;
+        }
+        return result;
     }
     public boolean removeItem(ListItem item){
-        
+        boolean result = false;
+        if(item.compareTo(root)<0){
+            result = removeItem(item.previous());
+        } else if (item.compareTo(root)>0){
+            result = removeItem(item.next());
+        } else if (root==null){
+            root = item;
+        }
+        return result;
     }
     public void traverse(ListItem item){
 
@@ -20,3 +36,4 @@ public class SearchTree implements NodeList{
     public void performRemoval(ListItem remove, ListItem parent){
 
     }
+}
